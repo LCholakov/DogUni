@@ -1,4 +1,4 @@
-package com.github.lcholakov.doguni;
+package com.doguni;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
