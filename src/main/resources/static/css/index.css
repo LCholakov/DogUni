@@ -1,9 +1,9 @@
-/* ...existing code... (reset/imports if any) ...existing code... */
-
 :root{
-  --accent:#2f855a;
-  --muted:#6b7280;
-  --bg:#fbfbfb;
+  --accent:#d5672b;              /* warm terracotta */
+  --accent-soft:#f4c7ac;         /* light tint background uses */
+  --accent-dark:#a3471f;         /* darker shade for hover/focus */
+  --muted:#7a6b62;               /* warmer muted text */
+  --bg:#fdf9f6;                  /* subtle warm background */
   --card:#ffffff;
   --radius:12px;
 }
@@ -18,13 +18,16 @@ body{
   display:flex;
   flex-direction:column;
   min-height:100vh;
+  position:relative;
+  isolation:isolate; /* creates a stacking context */
 }
 
 /* Header */
 .site-header{
-  background:linear-gradient(90deg, rgba(47,133,90,0.06), transparent);
+  background:linear-gradient(90deg, rgba(213,103,43,0.08), transparent);
   padding:18px 24px;
 }
+
 .header-inner{
   max-width:1100px;
   margin:0 auto;
@@ -37,6 +40,7 @@ body{
   color:var(--accent);
   font-size:1.25rem;
 }
+
 .main-nav ul{
   list-style:none;
   margin:0;
@@ -53,18 +57,37 @@ body{
   font-weight:600;
   font-size:0.95rem;
 }
-.main-nav a:hover{color:#0f172a}
+.main-nav a:not(.btn):hover{
+  color:var(--accent-dark);
+}
+
+.btn:hover,
+.btn:focus-visible{
+  color:#fff;
+}
 
 /* Buttons */
 .btn{
   background:var(--accent);
-  color:white;
-  box-shadow:0 2px 6px rgba(47,133,90,0.12);
+  color:#fff;
+  box-shadow:0 2px 6px rgba(213,103,43,0.18);
+  transition:background .15s, box-shadow .15s;
+}
+.btn:hover{
+  background:var(--accent-dark);
+}
+.btn:focus-visible{
+  outline:3px solid var(--accent-soft);
+  outline-offset:2px;
 }
 .btn.outline{
   background:transparent;
   color:var(--accent);
-  border:1px solid rgba(47,133,90,0.14);
+  border:1px solid rgba(213,103,43,0.35);
+}
+.btn.outline:hover{
+  background:var(--accent);
+  color:#fff;
 }
 
 /* Hero */
@@ -169,4 +192,198 @@ main{flex:1}
   .btn{padding:6px 8px}
   .reviews-track{gap:12px}
   .review{flex:0 0 84%}
+}
+
+/*https://codepen.io/tuckermassad/pen/OejmBr converted with copilot*/
+
+/* Dog strip theme */
+:root{
+  --dog-band: linear-gradient(to right top, #ebe0c2, #edddb0, #efd99d, #f1d68a, #f3d277);
+  --dog-belly:#654321;
+  --dog-belly-dark:#3f2a14;
+}
+
+/* Full-width mid-page strip with background */
+.dog-strip{
+  position:relative;
+  width:100%;
+  height:260px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  background:none; /* removed gradient */
+  margin:28px 0;
+  overflow:visible;
+}
+
+.dog{
+  position:relative;
+  width:250px;
+  height:250px;
+  animation:dog-bounce 0.25s infinite alternate;
+  z-index:1;
+  margin-bottom:12px;
+}
+
+/* Parts */
+#dog_belly{
+  position:absolute;
+  height:200px;
+  width:55px;
+  left:100px;
+  background-color:var(--dog-belly);
+  transform:rotate(90deg);
+  border-radius:2rem;
+  animation:dog-bellymove 0.25s infinite alternate;
+  z-index:2;
+}
+#dog_head{
+  position:absolute;
+  height:100px;
+  width:55px;
+  left:172.5px;
+  top:25px;
+  border-radius:2rem;
+  background-color:var(--dog-belly);
+  animation:dog-headbob 0.5s infinite alternate ease-in-out;
+  transform-origin:bottom;
+}
+#dog_ear_right{
+  position:absolute;
+  height:40px;
+  width:30px;
+  left:-10px;
+  background-color:var(--dog-belly-dark);
+  border-radius:1rem;
+  animation:dog-earflop 0.25s infinite alternate;
+}
+#dog_eye{
+  position:absolute;
+  height:15px;
+  width:15px;
+  left:30px;
+  top:10px;
+  background-color:#fff;
+  border-radius:50%;
+  z-index:1;
+  overflow:hidden;
+}
+#dog_eye_pupil{
+  height:12px;
+  width:12px;
+  background-color:var(--dog-belly-dark);
+  border-radius:50%;
+  transform:translateX(3px);
+}
+#dog_nose{
+  position:absolute;
+  width:60px;
+  height:25px;
+  top:20px;
+  left:15px;
+  background-color:var(--dog-belly);
+  border-radius:0 0 1rem 0;
+}
+#dog_nose_spot{
+  position:absolute;
+  left:67.5px;
+  top:15px;
+  width:12.5px;
+  height:12.5px;
+  background-color:var(--dog-belly-dark);
+  border-radius:50%;
+}
+
+/* Legs */
+#dog_leg_frontright,
+#dog_leg_frontleft{
+  position:absolute;
+  height:40px;
+  width:15px;
+  background-color:var(--dog-belly);
+  top:117.5px;
+  border-radius:2rem;
+  animation:dog-legmove 0.5s infinite alternate ease-in-out;
+}
+#dog_leg_frontright{ left:190px; z-index:1; }
+#dog_leg_frontleft{ left:50px; animation-delay:0.5s; }
+
+#dog_leg_backleft,
+#dog_leg_backright{
+  position:absolute;
+  height:40px;
+  width:15px;
+  background-color:var(--dog-belly-dark);
+  top:117.5px;
+  border-radius:2rem;
+  animation:dog-legmove 0.5s infinite alternate ease-in-out;
+  z-index:0;
+}
+#dog_leg_backleft{ left:50px; }
+#dog_leg_backright{ left:190px; animation-delay:0.5s; }
+
+/* Tail */
+#tail{
+  position:absolute;
+  top:80px;
+  left:5px;
+  width:40px;
+  height:15px;
+  background-color:var(--dog-belly);
+  border-radius:2rem;
+  animation:dog-tailwag 0.25s infinite alternate ease-in-out;
+  transform-origin:right;
+}
+
+/* Shadow centered in strip */
+
+#shadow{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:90px; /* raised shadow to sit just below legs */
+  width:200px;
+  height:15px;
+  background-color:var(--dog-belly);
+  opacity:0.15;
+  border-radius:2rem;
+  animation:dog-shadowmove 0.25s infinite alternate;
+  z-index:0;
+}
+
+/* Animations */
+@keyframes dog-bellymove{
+  from{width:50px;}
+  to{width:53.5px;}
+}
+@keyframes dog-headbob{
+  0%{transform:rotate(2deg);}
+  100%{transform:rotate(-2deg);}
+}
+@keyframes dog-legmove{
+  0%{transform:rotate(12deg) translateX(-5px);}
+  50%{transform:translateY(-4px);}
+  100%{transform:rotate(-12deg) translateX(5px);}
+}
+@keyframes dog-shadowmove{
+  from{width:200px;}
+  to{width:195px;}
+}
+@keyframes dog-tailwag{
+  from{width:40px; transform:rotate(25deg);}
+  to{width:38px; transform:rotate(12.5deg);}
+}
+@keyframes dog-earflop{
+  from{transform:rotate(60deg);}
+  to{transform:rotate(45deg);}
+}
+@keyframes dog-bounce{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(4px);}
+}
+
+/* Small screens */
+@media (max-width:640px){
+  .dog-strip{ height:220px; }
+  .dog{ transform:scale(0.9); transform-origin:center bottom; }
 }
