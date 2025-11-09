@@ -34,4 +34,66 @@
 
 .btn.full{ width:100%; margin-top:6px; }
 
+.btn.btn-accent {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .55rem;
+    width: 100%;
+    padding: .9rem 1.4rem;
+    font: 600 0.95rem/1 "Inter", system-ui, sans-serif;
+    letter-spacing: .5px;
+    color: #fff;
+    background:#ff7a18; /* solid color (gradient removed) */
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px -4px rgba(255,122,24,.55), 0 2px 4px rgba(0,0,0,.15);
+    transition: background .25s ease, transform .2s ease, box-shadow .3s ease;
+    overflow: hidden;
+}
+
+.btn.btn-accent .btn-glow {
+    position: absolute;
+    inset: 0;
+    background:
+            radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 60%),
+            radial-gradient(circle at 70% 70%, rgba(255,255,255,.18), transparent 65%);
+    opacity: .5;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    transition: opacity .3s ease;
+}
+
+.btn.btn-accent:hover {
+    background:#ff8a30;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px -5px rgba(255,122,24,.6), 0 3px 6px rgba(0,0,0,.2);
+}
+
+.btn.btn-accent:active {
+    transform: translateY(0);
+    background:#e96407;
+    box-shadow: 0 3px 8px -3px rgba(255,122,24,.55), 0 2px 4px rgba(0,0,0,.18);
+}
+
+.btn.btn-accent:focus-visible {
+    outline: 3px solid #ffe2c4;
+    outline-offset: 3px;
+}
+
+.btn.btn-accent .btn-text {
+    position: relative;
+    z-index: 2;
+    text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn.btn-accent,
+    .btn.btn-accent .btn-glow {
+        transition: none;
+    }
+}
+
 .dog-strip{ margin-top:28px; }

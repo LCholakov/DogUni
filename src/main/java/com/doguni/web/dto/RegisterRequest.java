@@ -1,6 +1,6 @@
 package com.doguni.web.dto;
 
-import com.doguni.model.UserRole;
+import com.doguni.model.AccountType;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -19,5 +19,5 @@ public class RegisterRequest {
     private String password ; // exactly 6 characters, must include only digits, not empty/blank text
 
     @NotNull
-    private UserRole role ; // must be valid House enum value, not null
+    private AccountType accountType ; // must be valid House enum value, not null
 }
