@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>DogUni — Owner Home</title>
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/register.css" />
+    <style>
+        .owner-dogs { margin-top: 2rem; }
+        .owner-dogs ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .75rem; }
+        .owner-dogs li { background: #ffffff0f; padding: .75rem 1rem; border: 1px solid #ffffff1a; border-radius: 8px; }
+        .courses { margin-top: 3rem; }
+        .course-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .75rem; }
+        .course-scroller { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: .5rem; scroll-snap-type: x proximity; }
+        .course-card { flex: 0 0 250px; background: #ffffff0f; border: 1px solid #ffffff1a; border-radius: 10px; padding: 1rem; scroll-snap-align: start; }
+        .course-card h3 { margin: 0 0 .5rem; font-size: 1rem; }
+        .course-card time { font-size: .875rem; opacity: .8; }
+        .user-area { display: flex; align-items: center; gap: 1rem; }
+        .user-icon { font-size: 1.4rem; line-height: 1; }
+        header .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logout-form { margin: 0; }
+        .logout-form button { cursor: pointer; }
+        /* Hide scrollbar aesthetic */
+        .course-scroller::-webkit-scrollbar { height: 6px; }
+        .course-scroller::-webkit-scrollbar-track { background: transparent; }
+        .course-scroller::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+    </style>
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <a class="logo" th:href="@{/}">DogUni</a>
+        <div class="user-area">
+            <span class="user-icon" aria-label="User account">👤</span>
+            <form class="logout-form" th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <button type="submit" class="btn outline" aria-label="Log out">Logout</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="owner-dogs" aria-labelledby="dogs-heading">
+        <h1 id="dogs-heading">Your Dogs</h1>
+        <ul>
+            <li><strong>Buddy</strong> — lvl 1</li>
+            <li><strong>Whitney</strong> — lvl 6</li>
+            <li><strong>Ubi</strong> — lvl 9</li>
+            <li><strong>Andre</strong> — lvl 1</li>
+        </ul>
+    </section>
+
+    <section class="courses" aria-labelledby="upcoming-heading">
+        <div class="course-header">
+            <h2 id="upcoming-heading">Upcoming Courses</h2>
+            <a class="btn" th:href="@{/courses}" aria-label="View all courses"><span class="btn-text">View All</span></a>
+        </div>
+        <div class="course-scroller" role="list">
+            <article class="course-card" role="listitem">
+                <h3>Basic Obedience</h3>
+                <time datetime="2025-12-01">Dec 1</time>
+            </article>
+            <article class="course-card" role="listitem">
+                <h3>Agility for Advanced</h3>
+                <time datetime="2025-12-07">Dec 7</time>
+            </article>
+            <article class="course-card" role="listitem">
+                <h3>Advanced Obedience</h3>
+                <time datetime="2025-12-24">Dec 24</time>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    © 2025 DogUni. All rights reserved.
+</footer>
+</body>
+</html>

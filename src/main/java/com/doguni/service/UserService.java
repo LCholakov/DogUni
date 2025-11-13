@@ -7,6 +7,11 @@ import com.doguni.repository.UserRepository;
 import com.doguni.web.dto.RegisterRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +22,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -48,6 +53,25 @@ public class UserService {
         log.info("New user profile was registered in the system for user [%s]".formatted(user));
 
         return user;
+    }
+
+
+    // Used by Spring Security during authentication
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User domainUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+
+        List<GrantedAuthority> authorities =
+                List.of(new SimpleGrantedAuthority("ROLE_" + domainUser.getRole().name()));
+
+        // Reuse Spring’s built-in User as the security adapter
+        return new org.springframework.security.core.userdetails.User(
+                domainUser.getEmail(),
+                domainUser.getPassword(),
+                true, true, true, true,
+                authorities
+        );
     }
 
 
