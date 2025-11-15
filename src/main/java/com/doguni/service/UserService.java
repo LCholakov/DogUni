@@ -55,8 +55,6 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-
-    // Used by Spring Security during authentication
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User domainUser = userRepository.findByEmail(email)
@@ -65,7 +63,7 @@ public class UserService implements UserDetailsService {
         List<GrantedAuthority> authorities =
                 List.of(new SimpleGrantedAuthority("ROLE_" + domainUser.getRole().name()));
 
-        // Reuse Spring’s built-in User as the security adapter
+
         return new org.springframework.security.core.userdetails.User(
                 domainUser.getEmail(),
                 domainUser.getPassword(),
