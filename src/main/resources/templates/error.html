@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title th:text="'Error ' + (${status} ?: '') + ' — DogUni'">DogUni — Error</title>
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/error.css" />
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <a class="logo" th:href="@{/}">DogUni</a>
+        <nav class="main-nav" aria-label="Main navigation">
+            <ul>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/login}" class="btn outline">Log In</a></li>
+                <li><a th:href="@{/register}" class="btn">Sign Up</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="hero" aria-labelledby="error-heading">
+        <h1 id="error-heading" th:switch="${status}">
+            <span th:case="403">Access denied</span>
+            <span th:case="404">Page not found</span>
+            <span th:case="500">Server error</span>
+            <span th:case="*">Something went wrong</span>
+        </h1>
+
+        <div class="form-wrap" role="group" aria-labelledby="error-heading">
+            <p>
+                <strong>Status:</strong>
+                <span th:text="${status} ?: 'N/A'">N/A</span>
+                — <span th:text="${error} ?: 'Unexpected error'">Unexpected error</span>
+            </p>
+
+            <p th:if="${message}">
+                <strong>Message:</strong>
+                <span th:text="${message}">Error message</span>
+            </p>
+
+            <p th:if="${path}">
+                <strong>Path:</strong>
+                <code th:text="${path}">/unknown</code>
+            </p>
+
+            <p th:if="${timestamp}">
+                <strong>Time:</strong>
+                <span th:text="${timestamp}">now</span>
+            </p>
+
+            <div class="form-actions">
+                <a class="btn" th:href="@{/}">Go Home</a>
+                <a class="btn outline" href="javascript:history.back()">Go Back</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    © 2025 DogUni. All rights reserved.
+</footer>
+</body>
+</html>

@@ -1,6 +1,6 @@
 package com.doguni.web;
 
-import com.doguni.exception.DogUniException;
+//import com.doguni.exception.DogUniException;
 import com.doguni.service.UserService;
 import com.doguni.web.dto.RegisterRequest;
 import jakarta.validation.Valid;
@@ -38,16 +38,15 @@ public class IndexController {
         if(bindingResult.hasErrors()) {
             return new ModelAndView("register");
         }
-
-        try {
-            userService.register(registerRequest);
-        } catch (DogUniException exception) {
-            bindingResult.rejectValue("email", "error.exists", exception.getMessage());
-            return new ModelAndView("register");
-        }
+        userService.register(registerRequest);
+//        try {
+//            userService.register(registerRequest);
+//        } catch (DogUniException exception) {
+//            bindingResult.rejectValue("email", "error.exists", exception.getMessage());
+//            return new ModelAndView("register");
+//        }
 
         redirectAttributes.addFlashAttribute("successfulRegistration", "You have registered successfully");
-
         return new ModelAndView("redirect:/login");
     }
 

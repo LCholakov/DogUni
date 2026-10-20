@@ -1,0 +1,104 @@
+/* Error page styles (uses variables from index.css with safe fallbacks) */
+:root {
+    --accent: var(--accent, #d5672b);
+    --accent-soft: var(--accent-soft, #f4c7ac);
+    --accent-dark: var(--accent-dark, #a3471f);
+    --muted: var(--muted, #5f544d);
+    --card: var(--card, #ffffff);
+}
+
+main { flex: 1; }
+
+.hero {
+    max-width: 1100px;
+    margin: 48px auto 24px;
+    padding: 32px 24px;
+    text-align: center;
+    border-radius: 14px;
+    background: linear-gradient(90deg, rgba(213,103,43,0.06), transparent);
+}
+
+.hero h1 {
+    margin: 0 0 20px;
+    font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+    line-height: 1.08;
+    color: #0f172a;
+}
+
+.form-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: left;
+    background: var(--card);
+    border: 1px solid rgba(15,23,42,0.06);
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 8px 24px rgba(2,6,23,0.06);
+}
+
+.form-wrap p {
+    margin: 8px 0;
+    color: #111827;
+}
+
+.form-wrap strong {
+    color: var(--muted);
+}
+
+code {
+    background: #f3f4f6;
+    color: #111827;
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    border: 0;
+    box-shadow: 0 2px 6px rgba(213,103,43,0.18);
+    transition: background .15s ease, box-shadow .15s ease, transform .1s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+    background: var(--accent-dark);
+    color: #fff;
+    outline: 3px solid var(--accent-soft);
+    outline-offset: 2px;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn.outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid rgba(213,103,43,0.35);
+}
+
+.btn.outline:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* Small adjustments for the link group below the error details */
+.form-wrap .btn + .btn {
+    margin-left: 8px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .form-wrap { padding: 14px; }
+    .hero { margin: 32px auto 16px; padding: 24px 16px; }
+    .form-wrap .btn + .btn { margin-left: 0; }
+}

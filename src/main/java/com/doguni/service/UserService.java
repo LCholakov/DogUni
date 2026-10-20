@@ -1,6 +1,7 @@
 package com.doguni.service;
 
-import com.doguni.exception.DogUniException;
+//import com.doguni.exception.DogUniException;
+import com.doguni.exception.EmailAlreadyExistsException;
 import com.doguni.model.User;
 import com.doguni.model.UserRole;
 import com.doguni.repository.UserRepository;
@@ -37,7 +38,7 @@ public class UserService implements UserDetailsService {
     public User register(RegisterRequest registerRequest) {
         Optional<User> optionalUser = userRepository.findByEmail(registerRequest.getEmail());
         if (optionalUser.isPresent()) {
-            throw new DogUniException("User with email address %s already exists.".formatted(registerRequest.getEmail()));
+            throw new EmailAlreadyExistsException("User with email address %s already exists.".formatted(registerRequest.getEmail()));
         }
 
         User user = User.builder()
